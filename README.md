@@ -58,3 +58,62 @@
         return result;
     }
 ```
+
+
+# Binary Search
+
+### Pattern Identification for Binary Search
+- **Minimum / Maximum keywords** are present in the problem  
+  (e.g., "minimum time", "maximum capacity", "smallest index").
+- The array (or search space) is **sorted** or can be made sorted.
+- The answer space can be **monotonic**  
+  (true for some range, false for the rest — or vice versa).
+---
+
+### Lower Bound (`std::lower_bound`)
+- **Definition:** Returns the first position where the element is **not less than** the target (`>= target`).
+- **If target is found:** Returns the **first occurrence** index.
+- **If target is not found:** Returns the index of the **first element greater than** target.
+
+```c++
+    int idx = lower_bound(v.begin(), v.end(), target) - v.begin();
+    [2, 4, 5, 6, 6, 6, 9]
+    Target = 6          Target = 7
+    Answer = 3          Answer = 6
+```
+  
+
+
+### Upper Bound  (`std::lower_bound`)
+- **Definition:** Returns the first index in a sorted array where the element is **greater than** the target.
+- **If target is found:** Returns the index just **after the last occurrence** of the target.
+- **If target is not found:** Returns the index of the **first element greater than** the target.
+- **If all elements are ≤ target:** Returns `end()`.
+
+```c++
+    int idx = upper_bound(v.begin(), v.end(), target) - v.begin();
+    [2, 4, 5, 6, 6, 6, 9]
+    Target = 6          Target = 7
+    Answer = 6          Answer = 6
+```
+
+---
+```c++
+# Implement binary search on answer template
+    vector<int> binarySearchOnAnswer(vector<int> nums) {
+        int l = 0;
+        int h = 1000000000;
+        int ans = 0;
+        while(i<=j) {
+            int mid = l + (h-l)/2;
+            if(isValid(nums,mid)) {
+                ans = mid;
+                h = mid - 1; // search on left window for better answer
+            }
+            else {
+                l = mid + 1; // search on right window if answer not found
+            }
+        }
+        return ans;
+    }
+```
