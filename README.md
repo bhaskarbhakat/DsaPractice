@@ -126,8 +126,9 @@
 
 ### Fixed-size window
 ```c++
-# Implement fixed size window template
-## Template 1 : 
+# Implement fixed size window technique
+
+# Template 1 : 
     int solve(vector<int> nums) {
         int n = nums.size();
         int windowSum = 0, maxSum = 0;
@@ -145,8 +146,8 @@
         return maxSum;
     }
 
-## Template 2 :
-int solve(vector<int> nums) {
+# Template 2 :
+    int solve(vector<int> nums) {
         int left = 0, windowSum = 0, maxSum = 0;
         for (int right = 0; right < n; right++) {
             windowSum += nums[right];
