@@ -117,3 +117,48 @@
         return ans;
     }
 ```
+
+# Sliding Window
+### Pattern identificaiton for sliding window
+- **Continuos subarray**,**maximum/minimum length of continous subarray** keywords are present in the problem.
+- **Longest / shortest substring**, **At most / at least K** constraints
+- Window size is given directly or indirectly.
+
+### Fixed-size window
+```c++
+# Implement fixed size window template
+## Template 1 : 
+    int solve(vector<int> nums) {
+        int n = nums.size();
+        int windowSum = 0, maxSum = 0;
+        
+        // 1. Build initial window
+        for (int i = 0; i < k; i++) 
+            windowSum += nums[i];
+        maxSum = windowSum;
+        
+        // 2. Slide
+        for (int i = k; i < n; i++) {
+            windowSum += nums[i] - nums[i-k]; // add right, remove left
+            maxSum = max(maxSum, windowSum);
+        }
+        return maxSum;
+    }
+
+## Template 2 :
+int solve(vector<int> nums) {
+        int left = 0, windowSum = 0, maxSum = 0;
+        for (int right = 0; right < n; right++) {
+            windowSum += nums[right];
+        
+            // when window hits size k
+            if (right - left + 1 == k) {
+                maxSum = max(maxSum, windowSum);
+                windowSum -= nums[left++];  // slide left
+            }
+        }
+        return maxSum;
+    }
+```
+
+### Variable-size window
